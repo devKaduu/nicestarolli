@@ -2,6 +2,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
 import { About } from "./About";
+import { EventsCampaigns } from "./EventsCampaigns";
 import { Hero } from "./Hero";
 import { Navbar } from "./Navbar";
 
@@ -19,6 +20,7 @@ export function Home() {
       <Navbar ref={navbarRef} />
       <Hero />
       <About />
+      <EventsCampaigns />
     </main>
   );
 }

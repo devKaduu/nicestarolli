@@ -3,13 +3,18 @@ import gsap from "gsap";
 import { SplitText } from "gsap/all";
 import { useRef } from "react";
 
+import ESPM from "../../../assets/espm.jpg";
 import { NicoleHero01 } from "../../../assets/hero/index";
+import JOY from "../../../assets/joy.png";
+import { Magnetic } from "../../../components/Magnetic";
 
 export function About() {
   const titleRef = useRef(null);
   const wrapperRef = useRef(null);
   const descriptionRef = useRef(null);
+  const currentJobRef = useRef(null);
   const wrapperText = useRef(null);
+  const wrapperTitle = useRef(null);
 
   //Teste
   const imageRefPin = useRef(null);
@@ -23,43 +28,49 @@ export function About() {
     () => {
       document.fonts.ready.then(() => {
         const splitTitle = SplitText.create(titleRef.current, { type: "chars" });
+        const splitDescription = SplitText.create(descriptionRef.current, { type: "lines" });
+        const splitCurrentJob = SplitText.create(currentJobRef.current, { type: "lines" });
 
-        gsap.from(splitTitle.chars, {
-          y: -100,
-          stagger: { each: 0.02, from: "center" },
-          ease: "back.out(1.7)",
+        const mainTimeline = gsap.timeline({
           scrollTrigger: {
-            trigger: wrapperRef.current,
-            start: "top 80%",
-            end: "bottom bottom",
-            scrub: true,
-            fastScrollEnd: true,
+            trigger: wrapperTitle.current,
+            start: "top 60%",
+            end: "bottom 50%",
+            scrub: 1,
+            markers: true,
           },
         });
-      });
+        gsap.set(splitTitle.chars, { y: -100 });
+        gsap.set(splitDescription.lines, { y: 50, autoAlpha: 0 });
+        gsap.set(splitCurrentJob.lines, { y: 50, autoAlpha: 0 });
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: wrapperRef.current,
-          start: "top center",
-          end: "30% center",
-          scrub: 3,
-          markers: true,
-        },
+        mainTimeline
+          .to(splitTitle.chars, {
+            y: 0,
+            stagger: { each: 0.02, from: "center" },
+            ease: "back.out(1.7)",
+          })
+          .to(
+            splitDescription.lines,
+            {
+              y: 0,
+              autoAlpha: 1,
+              stagger: 0.1,
+            },
+            "-=0.5"
+          )
+          .to(splitCurrentJob.lines, { y: 0, autoAlpha: 1, stagger: 0.1 }, "-=0.4");
       });
-
-      tl.from(descriptionRef.current, { y: 120, autoAlpha: 0 });
 
       //Pin Section
 
       const timelinePinSection = gsap.timeline({
         scrollTrigger: {
           trigger: imageRefPin.current,
-          start: "30% center",
-          end: "+=1200",
+          start: "50% center",
+          end: "+=1500",
           pin: imageRefPin.current,
-          markers: true,
-          scrub: 0.6,
+          scrub: 0.4,
         },
       });
 
@@ -74,25 +85,42 @@ export function About() {
   );
 
   return (
-    <div className="h-screen relative pointer-none" ref={wrapperRef}>
-      <div>
-        <div className="bg-[#f0f0f0] w-full h-55 absolute -top-30 z-2" />
-        <p className="text-[17.3rem] text-center uppercase font-bold font-sofia will-change-auto" ref={titleRef}>
+    <div className="relative pointer-none" ref={wrapperRef}>
+      <div ref={wrapperTitle}>
+        <div className="bg-[#f0f0f0] w-full h-54 absolute -top-30 z-2" />
+        <p className="text-[17.3rem] text-center uppercase font-bold font-sofia" ref={titleRef}>
           Sobre Mim
         </p>
-        <div className="max-w-7xl mx-auto2 mx-auto relative z-2" ref={wrapperText}>
-          <p className="text-2xl font-light text-left leading-12 italic" ref={descriptionRef}>
-            Estudante de Comunicação e Propaganda na ESPM e uma comunicadora criativa apaixonada por marketing, eventos
-            e storytelling. Com experiência em mídias sociais, produção de eventos e ambientes multiculturais, crio e
-            apoio experiências de marca impactantes. Colaboro com equipes e organizações que valorizam criatividade e
-            estratégia, transformando ideias em realidade por meio da comunicação, do design e de conexões
-            significativas.
+        <div className="max-w-7xl mx-auto relative z-2" ref={wrapperText}>
+          <p className="text-2xl font-light text-left leading-12" ref={descriptionRef}>
+            Estudante de <span className="italic font-semibold">Comunicação e Propaganda</span> na{" "}
+            <a href="https://www.espm.br/" target="_blank" rel="noopener noreferrer">
+              <Magnetic>
+                <img src={ESPM} className="inline w-20 h-auto align-middle mx-1" />
+              </Magnetic>
+            </a>
+            e uma comunicadora criativa apaixonada por marketing, eventos e storytelling. Com experiência em mídias
+            sociais, produção de eventos e ambientes multiculturais, crio e apoio experiências de marca impactantes.
+            Colaboro com equipes e organizações que valorizam criatividade e estratégia, transformando ideias em
+            realidade por meio da comunicação, do design e de conexões significativas.
+          </p>
+
+          <p className="text-2xl font-light text-left leading-12 mt-20 max-w-5xl ml-auto" ref={currentJobRef}>
+            Atualmente trabalhando em uma agência de <span className="italic font-semibold">Live Marketing</span>{" "}
+            chamada{" "}
+            <a href="https://joyeventos.com.br/" target="_blank" rel="noopener noreferrer">
+              <Magnetic>
+                <img src={JOY} className="inline w-20 h-auto align-middle mx-1" />
+              </Magnetic>{" "}
+            </a>
+            onde atuo como Produção mas passei por áreas como atendimento criando sempre conexões, atendemos desafios
+            com entusiasmo e criamos experiências marcantes.
           </p>
         </div>
       </div>
 
       {/*Pin Section */}
-      <div className="h-full w-full" ref={imageRefPin}>
+      <div className=" w-full" ref={imageRefPin}>
         <div className="flex">
           <div className=" flex-1 flex flex-col justify-between items-center text-center">
             <p className="text-2xl italic font-literata w-[400px]" ref={firstTextRef}>
@@ -118,10 +146,6 @@ export function About() {
             </p>
           </div>
         </div>
-      </div>
-
-      <div className="h-screen mt-40">
-        <p className="text-center">teste</p>
       </div>
     </div>
   );

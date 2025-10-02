@@ -24,7 +24,16 @@ function App() {
 
   return (
     <Loader>
-      <ReactLenis root options={{ autoRaf: false, smoothWheel: true, wheelMultiplier: 0.5 }} ref={lenisRef}>
+      <ReactLenis
+        root
+        options={{
+          duration: 1.2,
+          autoRaf: false,
+          smoothWheel: true,
+          wheelMultiplier: 0.5,
+        }}
+        ref={lenisRef}
+      >
         <Home />
       </ReactLenis>
     </Loader>

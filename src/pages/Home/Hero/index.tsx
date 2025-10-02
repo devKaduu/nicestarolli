@@ -21,15 +21,15 @@ export function Hero() {
       });
 
       tl.from(imageItemsRef.current, {
-        opacity: 0,
+        autoAlpha: 0,
         y: 40,
         duration: 0.6,
         ease: "back.out(1.7)", // ease-out suave
         stagger: 0.1,
       })
-        .from(nameRef.current, { opacity: 0, y: 20 }, "0.5")
-        .from(descriptionRef.current, { opacity: 0, y: 20 }, "<")
-        .from(emailRef.current, { opacity: 0, y: 20 });
+        .from(nameRef.current, { autoAlpha: 0, y: 20 }, "0.5")
+        .from(descriptionRef.current, { autoAlpha: 0, y: 20 }, "<")
+        .from(emailRef.current, { autoAlpha: 0, y: 20 });
     },
     { scope: WrapperScope }
   );
