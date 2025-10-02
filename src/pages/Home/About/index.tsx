@@ -34,10 +34,9 @@ export function About() {
         const mainTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: wrapperTitle.current,
-            start: "top 60%",
+            start: "top 70%",
             end: "bottom 50%",
             scrub: 1,
-            markers: true,
           },
         });
         gsap.set(splitTitle.chars, { y: -100 });
@@ -85,9 +84,9 @@ export function About() {
   );
 
   return (
-    <div className="relative pointer-none" ref={wrapperRef}>
-      <div ref={wrapperTitle}>
-        <div className="bg-[#f0f0f0] w-full h-54 absolute -top-30 z-2" />
+    <div className="relative pointer-none overflow-hidden" ref={wrapperRef}>
+      <div ref={wrapperTitle} className="">
+        <div className="bg-[#f0f0f0] w-full h-24 absolute top-0 z-2" />
         <p className="text-[17.3rem] text-center uppercase font-bold font-sofia" ref={titleRef}>
           Sobre Mim
         </p>
